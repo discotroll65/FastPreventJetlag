@@ -17,6 +17,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".TimeZonePickerFragment"
+            android:label="Choose Time Zone"
+            android:parentActivityName=".MyActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mycompany.myfirstapp.MyActivity" />
+        </activity>
+        <activity
             android:name=".DisplayMessageActivity"
             android:label="@string/title_activity_display_message"
             android:parentActivityName=".MyActivity" >

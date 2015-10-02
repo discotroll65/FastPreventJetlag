@@ -81,6 +81,29 @@
                     />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Change Timezone"
+                    android:onClick="showTimeZonePickerDialog" />
+
+                <TextView
+                    android:id="@+id/departing_tz_label"
+                    android:layout_width="fill_parent"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tz"
+                    android:textSize="12dp"
+                    android:padding="10dp"
+                    android:textColor="#000"/>
+
+            </LinearLayout>
+
 
 
 

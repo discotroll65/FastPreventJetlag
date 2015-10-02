@@ -10,5 +10,6 @@
     <string name="title_activity_display_message">MyMessage</string>
     <string name="change_time">Change Time</string>
     <string name="change_date">Change Date</string>
+    <string name="tz">Timezone</string>
     <string name="hello_world">Hello world!</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,6 @@ public class MyActivity extends AppCompatActivity {
     private Calendar calendar;
     private TextView departingDate;
     private TextView departingTime;
-    private int year, month, day;
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     /** Called when the user clicks the Send button */
 
@@ -62,6 +62,15 @@ public class MyActivity extends AppCompatActivity {
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    public void showTimeZonePickerDialog(View v) {
+        Intent intent = new Intent(this, TimeZonePickerFragment.class);
+        startActivity(intent);
+
+//        tzp.create
+//        BaseSampleActivity newFragment = new TimeZonePickerFragment();
+//        newFragment.show(getSupportFragmentManager(), "timeZonePicker");
     }
 
     public void showDatePickerDialog(View v) {
