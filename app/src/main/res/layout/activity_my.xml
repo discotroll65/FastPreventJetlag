@@ -72,7 +72,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_date"
-                    android:onClick="sendMessage" />
+                    android:onClick="showDatePickerDialog" />
                 <TextView
                     android:id="@+id/departing_date"
                     android:layout_width="fill_parent"

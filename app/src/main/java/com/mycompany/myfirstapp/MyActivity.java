@@ -49,20 +49,31 @@ public class MyActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         LocalTime currentTime = new LocalTime();
-
+        LocalTime departTimeToShow;
         if (usersDepartTime.toString().equals(new LocalTime(0,0,0).toString())) {
-            showDepartingTime(currentTime);
+            departTimeToShow = currentTime;
         } else {
-            showDepartingTime(usersDepartTime);
+            departTimeToShow = usersDepartTime;
+        }
+        showDepartingTime(departTimeToShow);
+
+
+        DateTime departDateToShow = usersDepartDate;
+
+        if (usersDepartDate.toString().equals(new DateTime(0,1,1,0,0).toString())){
+            departDateToShow =  currentTime.toDateTimeToday().plusMonths(1);
         }
 
-        DateTime dateToShow = currentTime.toDateTimeToday().plusMonths(1);
-        showDepartingDate(dateToShow);
-
+        showDepartingDate(departDateToShow);
     }
     private void showDepartingDate(DateTime dateToShow) {
         departingDate = (TextView) findViewById(R.id.departing_date);
@@ -83,10 +94,20 @@ public class MyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int departHour = intent.getIntExtra(TimePickerFragment.EXTRA_TIME_HOUR, 0);
         int departMin = intent.getIntExtra(TimePickerFragment.EXTRA_TIME_MINUTE, 0);
+        int departDay = intent.getIntExtra(DatePickerFragment.EXTRA_DATE_DAY, 0);
+        int departMonth = intent.getIntExtra(DatePickerFragment.EXTRA_DATE_MONTH, 0);
+        int departYear = intent.getIntExtra(DatePickerFragment.EXTRA_DATE_YEAR, 0);
+
 
         //Make the Text View
         if((departHour != -1) && departMin != -1) {
             usersDepartTime = new LocalTime(departHour, departMin);
+        }
+
+        if(departMonth != 0){
+            usersDepartDate = new DateTime(departYear, departMonth, departDay,0,0);
+        } else {
+            usersDepartDate = new DateTime(0,1,1,0,0);
         }
 
         setContentView(R.layout.activity_my);
