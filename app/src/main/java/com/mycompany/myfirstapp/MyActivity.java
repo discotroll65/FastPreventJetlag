@@ -1,6 +1,5 @@
 package com.mycompany.myfirstapp;
 
-import org.joda.time.LocalTime;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import net.danlew.android.joda.JodaTimeAndroid;
+import net.danlew.android.joda.ResourceZoneInfoProvider;
+import net.danlew.android.joda.DateUtils;
+import org.joda.time.LocalTime;
 
 public class MyActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
@@ -32,6 +35,7 @@ public class MyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        JodaTimeAndroid.init(this);
         setContentView(R.layout.activity_my);
     }
 
