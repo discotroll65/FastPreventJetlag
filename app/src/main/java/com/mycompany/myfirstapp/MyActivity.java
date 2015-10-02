@@ -31,8 +31,15 @@ public class MyActivity extends AppCompatActivity {
     private int year, month, day;
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     /** Called when the user clicks the Send button */
+
     public void setUsersDepartTime(int hour, int min){
         usersDepartTime = new LocalTime(hour, min);
+    }
+
+    public void renderUsersDepartTime(int hour, int min){
+        setUsersDepartTime(hour, min);
+        showDepartingTime(usersDepartTime);
+
     }
 
 

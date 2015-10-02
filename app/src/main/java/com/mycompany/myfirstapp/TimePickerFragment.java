@@ -35,7 +35,9 @@ public class TimePickerFragment extends DialogFragment
         intent.putExtra(EXTRA_TIME_HOUR, hourOfDay);
         intent.putExtra(EXTRA_TIME_MINUTE, minute);
 
-        startActivity(intent);
+//        startActivity(intent);
+        ((MyActivity) getActivity()).renderUsersDepartTime(hourOfDay, minute);
+
 
     }
 }
