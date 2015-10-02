@@ -2,6 +2,7 @@ package com.mycompany.myfirstapp;
 
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -11,6 +12,11 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.codetroopers.betterpickers.recurrencepicker.RecurrencePickerDialogFragment;
+import com.codetroopers.betterpickers.timezonepicker.TimeZoneInfo;
+import com.codetroopers.betterpickers.timezonepicker.TimeZonePickerDialogFragment;
+
 import net.danlew.android.joda.JodaTimeAndroid;
 import net.danlew.android.joda.ResourceZoneInfoProvider;
 import net.danlew.android.joda.DateUtils;
@@ -19,10 +25,15 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
-public class MyActivity extends AppCompatActivity {
+public class MyActivity extends AppCompatActivity
+        implements TimeZonePickerDialogFragment.OnTimeZoneSetListener {
     private LocalTime usersDepartTime;
     public DateTime usersDepartDate;
     private DatePicker datePicker;
@@ -30,7 +41,10 @@ public class MyActivity extends AppCompatActivity {
     private TextView departingDate;
     private TextView departingTime;
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
-    /** Called when the user clicks the Send button */
+//    for timezone picker
+    private TextView text;
+    private static final String FRAG_TAG_TIME_ZONE_PICKER = "timeZonePickerDialogFragment";
+    private String mRrule;
 
     public void setUsersDepartTime(int hour, int min){
         usersDepartTime = new LocalTime(hour, min);
@@ -65,12 +79,28 @@ public class MyActivity extends AppCompatActivity {
     }
 
     public void showTimeZonePickerDialog(View v) {
-        Intent intent = new Intent(this, TimeZonePickerFragment.class);
-        startActivity(intent);
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle b = new Bundle();
+        GregorianCalendar t = new GregorianCalendar();
+        t.setTime(new Date());
+        b.putLong(TimeZonePickerDialogFragment.BUNDLE_START_TIME_MILLIS, t.getTimeInMillis());
+        b.putString(TimeZonePickerDialogFragment.BUNDLE_TIME_ZONE, t.getTimeZone().toString());
 
-//        tzp.create
-//        BaseSampleActivity newFragment = new TimeZonePickerFragment();
-//        newFragment.show(getSupportFragmentManager(), "timeZonePicker");
+        // may be more efficient to serialize and pass in EventRecurrence
+        b.putString(RecurrencePickerDialogFragment.BUNDLE_RRULE, mRrule);
+
+        TimeZonePickerDialogFragment tzpd = (TimeZonePickerDialogFragment) fm
+                .findFragmentByTag(FRAG_TAG_TIME_ZONE_PICKER);
+        if (tzpd != null) {
+            tzpd.dismiss();
+        }
+        tzpd = new TimeZonePickerDialogFragment();
+        tzpd.setArguments(b);
+        tzpd.setOnTimeZoneSetListener(MyActivity.this);
+        tzpd.show(fm, FRAG_TAG_TIME_ZONE_PICKER);
+//        Intent intent = new Intent(this, TimeZonePickerFragment.class);
+//        startActivity(intent);
+
     }
 
     public void showDatePickerDialog(View v) {
@@ -159,5 +189,11 @@ public class MyActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTimeZoneSet(TimeZoneInfo tzi) {
+        text = (TextView) findViewById(R.id.departing_tz_label);
+        text.setText(tzi.mDisplayName);
     }
 }
