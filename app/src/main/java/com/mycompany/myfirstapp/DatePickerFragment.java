@@ -30,13 +30,6 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        Intent intent = new Intent(getActivity(), MyActivity.class);
-
-        intent.putExtra(EXTRA_DATE_DAY, day);
-        intent.putExtra(EXTRA_DATE_MONTH, month + 1);
-        intent.putExtra(EXTRA_DATE_YEAR, year);
-
-        startActivity(intent);
-
+        ((MyActivity) getActivity()).renderUsersDepartTime(year, month + 1, day);
     }
 }

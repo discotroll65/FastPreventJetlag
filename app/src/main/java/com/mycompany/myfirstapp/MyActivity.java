@@ -36,10 +36,18 @@ public class MyActivity extends AppCompatActivity {
         usersDepartTime = new LocalTime(hour, min);
     }
 
+    public void setUsersDepartDate(int year, int month, int day){
+        usersDepartDate = new DateTime(year,month,day,0,0);
+    }
+
+    public void renderUsersDepartTime(int year, int month, int day){
+        setUsersDepartDate(year, month, day);
+        showDepartingDate(usersDepartDate);
+    }
+
     public void renderUsersDepartTime(int hour, int min){
         setUsersDepartTime(hour, min);
         showDepartingTime(usersDepartTime);
-
     }
 
 

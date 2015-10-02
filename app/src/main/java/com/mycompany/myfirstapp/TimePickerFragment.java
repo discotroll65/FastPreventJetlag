@@ -30,14 +30,6 @@ public class TimePickerFragment extends DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Intent intent = new Intent(getActivity(), MyActivity.class);
-
-        intent.putExtra(EXTRA_TIME_HOUR, hourOfDay);
-        intent.putExtra(EXTRA_TIME_MINUTE, minute);
-
-//        startActivity(intent);
         ((MyActivity) getActivity()).renderUsersDepartTime(hourOfDay, minute);
-
-
     }
 }
